@@ -26,7 +26,7 @@ describe('browser functional flow', () => {
     const page = await browser.newPage();
     await page.goto(server.url);
 
-    await expect(page.getByRole('heading', { name: 'LAN File Server' }).isVisible()).resolves.toBe(true);
+    await expect(page.getByRole('heading', { name: 'LANShare' }).isVisible()).resolves.toBe(true);
     await expect(page.getByText(root).isVisible()).resolves.toBe(true);
     await expect(page.getByRole('link', { name: /photo\.txt/ }).isVisible()).resolves.toBe(true);
 

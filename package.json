@@ -1,7 +1,7 @@
 {
   "name": "lan-file-server-electron",
   "version": "1.0.0",
-  "description": "Desktop Electron app for sharing a folder on your LAN with a minimalist web UI.",
+  "description": "LANShare desktop app for sharing a folder on your LAN with a minimalist web UI.",
   "type": "module",
   "main": "dist/electron/main.js",
   "author": {
@@ -64,8 +64,8 @@
     "vitest": "^4.0.8"
   },
   "build": {
-    "appId": "dev.howardsun.lan-file-server",
-    "productName": "LAN File Server",
+    "appId": "dev.howardsun.lanshare",
+    "productName": "LANShare",
     "directories": {
       "output": "release"
     },

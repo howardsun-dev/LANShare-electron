@@ -33,7 +33,7 @@ describe('package Electron wiring', () => {
     expect(packageJson.build?.publish?.[0]).toMatchObject({
       provider: 'github',
       owner: 'howardsun-dev',
-      repo: 'lan-file-server-electron',
+      repo: 'LANShare-electron',
     });
   });
 });

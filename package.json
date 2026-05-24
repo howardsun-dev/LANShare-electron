@@ -1,5 +1,5 @@
 {
-  "name": "lan-file-server-electron",
+  "name": "lanshare-electron",
   "version": "1.0.0",
   "description": "LANShare desktop app for sharing a folder on your LAN with a minimalist web UI.",
   "type": "module",
@@ -9,13 +9,13 @@
     "email": "howardsun@darkquark.org"
   },
   "license": "MIT",
-  "homepage": "https://github.com/howardsun-dev/lan-file-server-electron#readme",
+  "homepage": "https://github.com/howardsun-dev/LANShare-electron#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/howardsun-dev/lan-file-server-electron.git"
+    "url": "git+https://github.com/howardsun-dev/LANShare-electron.git"
   },
   "bugs": {
-    "url": "https://github.com/howardsun-dev/lan-file-server-electron/issues"
+    "url": "https://github.com/howardsun-dev/LANShare-electron/issues"
   },
   "scripts": {
     "dev": "npm run build && electron .",
@@ -81,7 +81,7 @@
       {
         "provider": "github",
         "owner": "howardsun-dev",
-        "repo": "lan-file-server-electron"
+        "repo": "LANShare-electron"
       }
     ],
     "mac": {

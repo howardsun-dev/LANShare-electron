@@ -1,0 +1,116 @@
+{
+  "name": "lan-file-server-electron",
+  "version": "1.0.0",
+  "description": "Desktop Electron app for sharing a folder on your LAN with a minimalist web UI.",
+  "type": "module",
+  "main": "dist/electron/main.js",
+  "author": {
+    "name": "Howard Sun",
+    "email": "howardsun@darkquark.org"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/howardsun-dev/lan-file-server-electron#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howardsun-dev/lan-file-server-electron.git"
+  },
+  "bugs": {
+    "url": "https://github.com/howardsun-dev/lan-file-server-electron/issues"
+  },
+  "scripts": {
+    "dev": "npm run build && electron .",
+    "build": "tsc -p tsconfig.json",
+    "start": "electron .",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:functional": "vitest run tests/functional",
+    "check": "npm run lint && npm test && npm run build",
+    "dist": "npm run build && electron-builder",
+    "dist:linux": "npm run build && electron-builder --linux AppImage deb rpm",
+    "dist:mac": "npm run build && electron-builder --mac dmg zip",
+    "dist:win": "npm run build && electron-builder --win nsis portable"
+  },
+  "keywords": [
+    "electron",
+    "lan",
+    "file-server",
+    "typescript",
+    "desktop"
+  ],
+  "dependencies": {
+    "compression": "^1.8.1",
+    "express": "^5.1.0",
+    "mime-types": "^3.0.2",
+    "serve-static": "^2.2.0"
+  },
+  "devDependencies": {
+    "@electron/notarize": "^3.1.0",
+    "@eslint/js": "^9.39.1",
+    "@types/compression": "^1.8.1",
+    "@types/express": "^5.0.5",
+    "@types/mime-types": "^3.0.1",
+    "@types/node": "^24.10.1",
+    "@types/supertest": "^6.0.3",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9.39.1",
+    "playwright": "^1.56.1",
+    "supertest": "^7.1.4",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0",
+    "vitest": "^4.0.8"
+  },
+  "build": {
+    "appId": "dev.howardsun.lan-file-server",
+    "productName": "LAN File Server",
+    "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "README.md",
+      "LICENSE"
+    ],
+    "asar": true,
+    "npmRebuild": false,
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "howardsun-dev",
+        "repo": "lan-file-server-electron"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

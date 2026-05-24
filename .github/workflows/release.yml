@@ -1,0 +1,81 @@
+name: Build desktop release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to build, for example v1.0.0. Leave blank to build current ref as a draftless CI artifact run.'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Windows
+            os: windows-latest
+            script: dist:win
+          - name: macOS
+            os: macos-latest
+            script: dist:mac
+          - name: Linux
+            os: ubuntu-latest
+            script: dist:linux
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Linux build/test dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y rpm
+          npx playwright install --with-deps chromium
+
+      - name: Install Playwright browser
+        if: runner.os != 'Linux'
+        run: npx playwright install chromium
+
+      - name: Run tests and TypeScript build
+        run: npm run check
+
+      - name: Build and publish release artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: |
+          if [[ -n "${{ inputs.tag }}" ]]; then
+            git tag "${{ inputs.tag }}" || true
+          fi
+          npm run "${{ matrix.script }}" -- --publish always
+
+      - name: Upload workflow artifacts for debugging
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}-release-output
+          path: release/**
+          if-no-files-found: ignore

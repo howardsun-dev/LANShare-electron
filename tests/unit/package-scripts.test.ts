@@ -28,12 +28,12 @@ describe('package Electron wiring', () => {
     const packageJson = await readPackageJson();
 
     expect(packageJson.scripts?.dist).toContain('electron-builder');
-    expect(packageJson.build?.appId).toBe('dev.howardsun.lan-file-server');
-    expect(packageJson.build?.productName).toBe('LAN File Server');
+    expect(packageJson.build?.appId).toBe('dev.howardsun.lanshare');
+    expect(packageJson.build?.productName).toBe('LANShare');
     expect(packageJson.build?.publish?.[0]).toMatchObject({
       provider: 'github',
       owner: 'howardsun-dev',
-      repo: 'lan-file-server-electron',
+      repo: 'LANShare-electron',
     });
   });
 });

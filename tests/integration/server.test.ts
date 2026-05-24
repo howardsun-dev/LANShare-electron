@@ -24,7 +24,7 @@ describe('HTTP file server', () => {
 
     const response = await request(app).get('/').expect(200).expect('Content-Type', /html/);
 
-    expect(response.text).toContain('LAN File Server');
+    expect(response.text).toContain('LANShare');
     expect(response.text).toContain('hello.txt');
     expect(response.text).toContain('docs/');
     expect(response.text).toContain('class="shell"');

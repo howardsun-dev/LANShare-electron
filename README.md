@@ -1,6 +1,6 @@
-# LAN File Server Desktop
+# LANShare Desktop
 
-Electron desktop wrapper for [`howardsun-dev/lan-file-server`](https://github.com/howardsun-dev/lan-file-server).
+Electron desktop wrapper for [`howardsun-dev/LANShare`](https://github.com/howardsun-dev/LANShare).
 
 It starts the existing local control server inside an Electron app window, then lets you pick a folder and expose it to devices on the same LAN.
 
@@ -8,7 +8,7 @@ It starts the existing local control server inside an Electron app window, then 
 
 - Opens a native desktop app instead of a browser tab
 - Lets you browse this machine's folders from the control UI
-- Starts/stops the LAN file server from the app
+- Starts/stops LANShare from the app
 - Shows local and LAN URLs for downloads
 - Serves read-only files with path traversal protection
 - Keeps the control UI bound to `127.0.0.1`
@@ -16,7 +16,7 @@ It starts the existing local control server inside an Electron app window, then 
 
 ## Security notes
 
-This is a convenience LAN file server, not an internet-facing hardened gateway.
+LANShare is a convenience LAN file server, not an internet-facing hardened gateway.
 
 - It has no authentication.
 - Anyone who can reach the file server host/port can read the shared files.
@@ -81,7 +81,7 @@ tests/
 
 ## Upstream source
 
-This repo was derived from `howardsun-dev/lan-file-server` and keeps the server/control code in-tree so desktop releases are self-contained.
+This repo was derived from `howardsun-dev/LANShare` and keeps the server/control code in-tree so desktop releases are self-contained.
 
 ## License
 

@@ -17,7 +17,7 @@ async function createWindow(): Promise<void> {
     height: 820,
     minWidth: 900,
     minHeight: 640,
-    title: 'LAN File Server',
+    title: 'LANShare',
     show: false,
     webPreferences: {
       contextIsolation: true,

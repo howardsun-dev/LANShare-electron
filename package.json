@@ -1,6 +1,6 @@
 {
   "name": "lanshare-electron",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "LANShare desktop app for sharing a folder on your LAN with a minimalist web UI.",
   "type": "module",
   "main": "dist/electron/main.js",

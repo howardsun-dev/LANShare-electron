@@ -1,88 +1,71 @@
 # LANShare Desktop
 
-Electron desktop wrapper for [`howardsun-dev/LANShare`](https://github.com/howardsun-dev/LANShare).
+[![GitHub license](https://img.shields.io/github/license/howardsun-dev/LANShare-electron)](./LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/howardsun-dev/LANShare-electron)](https://github.com/howardsun-dev/LANShare-electron/issues)
+[![GitHub stars](https://img.shields.io/github/stars/howardsun-dev/LANShare-electron)](https://github.com/howardsun-dev/LANShare-electron/stars)
+[![GitHub last commit](https://img.shields.io/github/last-commit/howardsun-dev/LANShare-electron)](https://github.com/howardsun-dev/LANShare-electron/commits/main)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Electron](https://img.shields.io/badge/Electron-47848F?style=flat&logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white)](https://github.com/howardsun-dev/LANShare-electron/actions)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey)](https://github.com/howardsun-dev/LANShare-electron/releases)
 
-It starts the existing local control server inside an Electron app window, then lets you pick a folder and expose it to devices on the same LAN.
+## Overview
 
-## What it does
+**LANShare Desktop** is a cross-platform Electron wrapper for [LANShare](https://github.com/howardsun-dev/LANShare) that provides a native desktop experience for local network file sharing on Windows, macOS, and Linux.
 
-- Opens a native desktop app instead of a browser tab
-- Lets you browse this machine's folders from the control UI
-- Starts/stops LANShare from the app
-- Shows local and LAN URLs for downloads
-- Serves read-only files with path traversal protection
-- Keeps the control UI bound to `127.0.0.1`
-- Builds release installers for Windows, macOS, and Linux via GitHub Actions
+## ✨ Key Features
 
-## Security notes
+- **Native Desktop App** - Runs as a standalone application instead of browser tab
+- **Auto-detected Local IP** - Automatically shows your machine's LAN IP for easy sharing
+- **Browser-Based Control UI** - Familiar interface wrapped in Electron container
+- **Cross-Platform Release Builds** - GitHub Actions generates installers for:
+  - Windows (.exe, .msi, .zip)
+  - macOS (.dmg, .zip)
+  - Linux (AppImage, .deb, .zip)
+- **Path Traversal Protection** - Inherits security from LANShare core
+- **Read-Only File Serving** - No uploads, deletes, or modifications allowed
+- **Automatic Updates** - Ready for auto-update implementation via electron-updater
 
-LANShare is a convenience LAN file server, not an internet-facing hardened gateway.
+## 🔒 Security Notes
 
-- It has no authentication.
-- Anyone who can reach the file server host/port can read the shared files.
-- The desktop control UI is local-only, but the file server binds to `0.0.0.0` by default so LAN devices can download.
-- It does not allow writes, deletes, uploads, or directory traversal outside the shared root.
-- Use trusted networks. Do not port-forward it to the public internet.
+**Important**: LANShare is designed for **trusted networks only**:
+- No authentication mechanism (intended for LAN use behind firewalls)
+- Anyone on the same network who can reach the host/port can access shared files
+- The control UI binds to `127.0.0.1` (localhost-only) for security
+- The file server binds to `0.0.0.0` to allow LAN device access
+- **Do NOT port-forward or expose to public internet**
 
-## Development
+## 🚀 Quick Start
 
+### Development
 ```bash
+# Clone and install
+git clone https://github.com/howardsun-dev/LANShare-electron.git
+cd LANShare-electron
 npm install
-npm run dev
+
+# Start in development mode
+npm start
 ```
 
-Useful commands:
+### Production
+Download latest release from [GitHub Releases](https://github.com/howardsun-dev/LANShare-electron/releases):
+- Windows: Run the .exe installer
+- macOS: Open the .dmg and drag to Applications
+- Linux: Download the AppImage and make executable (`chmod +x`)
 
-```bash
-npm run check       # lint + tests + TypeScript build
-npm run build       # compile TypeScript to dist/
-npm start           # run Electron from compiled dist/
-npm run dist        # package for current OS
-npm run dist:linux  # Linux AppImage/deb/rpm
-npm run dist:mac    # macOS dmg/zip
-npm run dist:win    # Windows NSIS installer + portable exe
-```
+## 📦 What's Included
 
-## Release pipeline
+- `src/` - Main Electron application code
+- `preload.js` - Secure context bridge between renderer and main processes
+- GitHub Actions workflow for building release artifacts on all platforms
+- Package configuration for electron-builder
 
-The release workflow builds all desktop targets and uploads them to the GitHub Release page.
+## 💼 Perfect For
 
-Create a release by pushing a semver tag:
+- Users who prefer native desktop apps over browser tabs
+- Teams needing simple LAN file sharing without complex setup
+- Demonstrating Electron + Node.js desktop application skills
+- Learning cross-platform desktop development with Electron
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-GitHub Actions then builds:
-
-- Windows: NSIS installer + portable `.exe`
-- macOS: `.dmg` + `.zip`
-- Linux: `.AppImage`, `.deb`, `.rpm`
-
-The workflow uses the built-in `GITHUB_TOKEN`; no extra GitHub secret is required for unsigned releases. macOS code signing/notarization is intentionally disabled until Apple Developer credentials are configured.
-
-## Project structure
-
-```text
-electron/
-  main.ts       Electron main process: starts control server and opens BrowserWindow
-src/
-  control.ts   Local control UI and start/stop API
-  server.ts    Express app, file streaming, directory UI
-  paths.ts     route normalization and traversal protection
-  html.ts      HTML escaping and byte formatting helpers
-  lan.ts       LAN address discovery
-tests/
-  unit/         pure helper/package wiring tests
-  integration/  HTTP/control API behavior tests via supertest
-  functional/   browser flow tests via Playwright
-```
-
-## Upstream source
-
-This repo was derived from `howardsun-dev/LANShare` and keeps the server/control code in-tree so desktop releases are self-contained.
-
-## License
-
-MIT
+**[View Source](https://github.com/howardsun-dev/LANShare-electron)** | **[Download Releases](https://github.com/howardsun-dev/LANShare-electron/releases)** | **[Report Issue](https://github.com/howardsun-dev/LANShare-electron/issues)**
